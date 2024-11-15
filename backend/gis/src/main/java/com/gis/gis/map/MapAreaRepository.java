@@ -1,4 +1,4 @@
-package com.gis.gis;
+package com.gis.gis.map;
 
 import org.locationtech.jts.geom.Geometry;
 import org.springframework.data.jpa.repository.JpaRepository;

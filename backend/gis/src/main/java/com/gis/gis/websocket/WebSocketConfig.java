@@ -1,4 +1,4 @@
-package com.gis.gis;
+package com.gis.gis.websocket;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

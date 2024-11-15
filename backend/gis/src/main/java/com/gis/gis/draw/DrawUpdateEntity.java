@@ -1,4 +1,4 @@
-package com.gis.gis;
+package com.gis.gis.draw;
 
 import jakarta.persistence.*;
 import lombok.Data;

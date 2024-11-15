@@ -1,5 +1,6 @@
-package com.gis.gis;
+package com.gis.gis.websocket;
 
+import com.gis.gis.draw.DrawUpdate;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;

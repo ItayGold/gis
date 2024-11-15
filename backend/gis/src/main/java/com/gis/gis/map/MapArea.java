@@ -1,8 +1,7 @@
-package com.gis.gis;
+package com.gis.gis.map;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.Polygon;
 
 @Entity
