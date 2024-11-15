@@ -41,6 +41,10 @@ public class DrawUpdateService {
     entity.setLayer(drawUpdate.getLayer());
 
     repository.save(entity);
+
+    System.out.printf("DrawUpdate saved: %s, %s, %s, %s, %s, %s\n",
+        drawUpdate.getAction(), drawUpdate.getUserId(), drawUpdate.getAreaName(),
+        drawUpdate.getLayer(), drawUpdate.getAreaSize(), drawUpdate.getTimestamp());
   }
 
   private Coordinate[] closePolygonIfNeeded(Coordinate[] coordinates) {

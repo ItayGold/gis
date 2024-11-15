@@ -1,6 +1,7 @@
 package com.gis.gis.map;
 
 import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.io.WKTReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,18 +16,21 @@ public class MapAreaController {
 
   @PostMapping
   public MapArea saveArea(@RequestBody MapArea area) {
-    // Save the area with calculated size
     area.setAreaSize(calculateAreaSize(area.getGeometry()));
     return repository.save(area);
   }
 
   @GetMapping
-  public List<MapArea> getAreasWithinBounds(@RequestParam Geometry boundingBox) {
-    return repository.findAreasWithinBounds(boundingBox);
+  public List<MapArea> getAreasWithinBounds(@RequestParam String boundingBox) {
+    try {
+      Geometry bbox = new WKTReader().read(boundingBox);
+      return repository.findAreasWithinBounds(bbox);
+    } catch (Exception e) {
+      throw new IllegalArgumentException("Invalid bounding box format", e);
+    }
   }
 
   private double calculateAreaSize(Geometry geometry) {
-    return geometry.getArea() / 1_000_000; // Convert sq. meters to sq. kilometers
+    return geometry.getArea() / 1_000_000;
   }
 }
-

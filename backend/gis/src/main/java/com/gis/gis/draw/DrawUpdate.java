@@ -5,13 +5,13 @@ import lombok.Data;
 @Data
 public class DrawUpdate {
 
-  private String action; // "add", "update", "delete"
+  private String action; // CRUD actions
   private String userId; // the user performing the action
   private String areaName; // Name of the drawn area
   private double[][] coordinates; // Coordinates for the polygon [latitude, longitude] pairs
   private String layer; // Layer information: "regular" or "satellite"
 
-  // Additional metadata (optional)
+  // Additional metadata
   private double areaSize; // Calculated area in square kilometers
   private String timestamp; // Timestamp of the action
 
