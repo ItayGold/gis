@@ -1,6 +1,7 @@
 package com.gis.gis.map;
 
 import jakarta.persistence.*;
+import lombok.Setter;
 import org.locationtech.jts.geom.Geometry;
 
 @Entity
@@ -10,43 +11,33 @@ public class MapArea {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Setter
   private String name;
 
-  @Column(columnDefinition = "geometry")
+  @Setter
+  @Column(columnDefinition = "geometry(POLYGON, 4326)")
   private Geometry geometry;
 
+  @Setter
   private double areaSize;
 
-  // Getters and setters
   public Long getId() {
     return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
   }
 
   public String getName() {
     return name;
   }
 
-  public void setName(String name) {
-    this.name = name;
-  }
-
   public Geometry getGeometry() {
     return geometry;
-  }
-
-  public void setGeometry(Geometry geometry) {
-    this.geometry = geometry;
   }
 
   public double getAreaSize() {
     return areaSize;
   }
 
-  public void setAreaSize(double areaSize) {
-    this.areaSize = areaSize;
+  public boolean isValid() {
+    return name != null && geometry != null && areaSize > 0;
   }
 }

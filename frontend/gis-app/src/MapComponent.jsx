@@ -21,7 +21,7 @@ const MapComponent = () => {
 
       // Send new area to the backend
       axios
-        .post("/api/areas", area)
+        .post("http://localhost:8080/api/areas", area)
         .then((response) => {
           setAreas((prevAreas) => [...prevAreas, response.data]);
         })
