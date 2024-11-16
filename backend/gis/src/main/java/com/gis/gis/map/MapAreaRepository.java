@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface MapAreaRepository extends JpaRepository<MapArea, Long> {
 
-  @Query("SELECT m FROM MapArea m WHERE ST_Within(m.geometry, :boundingBox) = true")
-  List<MapArea> findAreasWithinBounds(@Param("boundingBox") Geometry boundingBox);
+  @Query("SELECT m FROM MapArea m WHERE ST_Intersects(m.geometry, ST_GeomFromGeoJSON(:boundingBox)) = true")
+  List<MapArea> findAreasWithinBounds(@Param("boundingBox") String boundingBox);
 }
+

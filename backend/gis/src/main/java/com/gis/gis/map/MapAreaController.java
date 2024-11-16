@@ -2,6 +2,8 @@ package com.gis.gis.map;
 
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.io.WKTReader;
+import org.locationtech.jts.io.geojson.GeoJsonReader;
+import org.locationtech.jts.io.geojson.GeoJsonWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,10 +25,19 @@ public class MapAreaController {
   @GetMapping
   public List<MapArea> getAreasWithinBounds(@RequestParam String boundingBox) {
     try {
-      Geometry bbox = new WKTReader().read(boundingBox);
-      return repository.findAreasWithinBounds(bbox);
+      // Parse the GeoJSON bounding box into Geometry
+      GeoJsonReader reader = new GeoJsonReader();
+      Geometry bbox = reader.read(boundingBox);
+
+      // Convert Geometry back to GeoJSON string
+      GeoJsonWriter writer = new GeoJsonWriter();
+      String geoJsonBoundingBox = writer.write(bbox);
+
+      // Fetch areas from the repository
+      return repository.findAreasWithinBounds(geoJsonBoundingBox);
+
     } catch (Exception e) {
-      throw new IllegalArgumentException("Invalid bounding box format", e);
+      throw new IllegalArgumentException("Invalid GeoJSON format for bounding box: " + e.getMessage());
     }
   }
 
